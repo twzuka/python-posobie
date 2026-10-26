@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Пособие по Python</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d6577"/></marker></defs></svg>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h1>Пособие по <span>Python</span></h1>
+    <p class="lead">Основы программирования по шагам: от первой строчки кода до циклов. В каждой главе есть объяснение с примерами, пошаговый разбор программ, частые ошибки и вопросы для самопроверки.</p>
+    <div class="legend">
+      <span class="chip"><i style="background:var(--green)"></i>Лайфхак</span>
+      <span class="chip"><i style="background:var(--orange)"></i>Осторожно</span>
+      <span class="chip"><i style="background:var(--yellow)"></i>Запусти по шагам</span>
+      <span class="chip"><i style="background:var(--red)"></i>Ошибка и как её исправить</span>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="search">
+      <label for="q" style="position:absolute;left:-9999px">Поиск по пособию</label>
+      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск: print, срез, elif, range, ошибка…" autocomplete="off">
+      <button id="clear" type="button" aria-label="Очистить поиск" hidden>×</button>
+    </div>
+    <nav class="tabs" aria-label="Главы">
+      <a href="#toc"><b>≡</b>Оглавление</a>
+      <a href="#ch1" data-ch="1"><b>01</b>Первые программы</a>
+      <a href="#ch2" data-ch="2"><b>02</b>Переменные</a>
+      <a href="#ch3" data-ch="3"><b>03</b>Строки</a>
+      <a href="#ch4" data-ch="4"><b>04</b>Короткий код</a>
+      <a href="#ch5" data-ch="5"><b>05</b>Условия</a>
+      <a href="#ch6" data-ch="6"><b>06</b>Сложные условия</a>
+      <a href="#ch7" data-ch="7"><b>07</b>Цикл while</a>
+      <a href="#ch8" data-ch="8"><b>08</b>Цикл for</a>
+      <a href="#words"><b>А</b>Словарик</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap" id="main">
+
+<div class="toc-wrap" id="toc">
+  <h2>Оглавление</h2>
+  <ul class="toc" style="margin-top:14px">
+    <li><a href="#ch1"><b>01</b>Первые программы<small>print(), арифметика, правила Python</small></a></li>
+    <li><a href="#ch2"><b>02</b>Переменные и ввод<small>присваивание, типы данных, input(), int()</small></a></li>
+    <li><a href="#ch3"><b>03</b>Строки<small>длина, символы по номеру, поиск</small></a></li>
+    <li><a href="#ch4"><b>04</b>Короткий и понятный код<small>вложенные команды, комментарии</small></a></li>
+    <li><a href="#ch5"><b>05</b>Условия<small>True и False, if и else</small></a></li>
+    <li><a href="#ch6"><b>06</b>Сложные условия<small>вложенный if, elif</small></a></li>
+    <li><a href="#ch7"><b>07</b>Цикл while<small>повтор, счётчик, сумма</small></a></li>
+    <li><a href="#ch8"><b>08</b>Цикл for<small>перебор строки, range(), break</small></a></li>
+  </ul>
+</div>
+
+<script src="chapters/ch1.js"></script>
+
+<script src="chapters/ch2.js"></script>
+
+<script src="chapters/ch3.js"></script>
+
+<script src="chapters/ch4.js"></script>
+
+<script src="chapters/ch5.js"></script>
+
+<script src="chapters/ch6.js"></script>
+
+<script src="chapters/ch7.js"></script>
+
+<script src="chapters/ch8.js"></script>
+
+<section class="sec" id="words">
+  <div class="sec-head">
+    <div class="sec-num" style="background:var(--yellow);color:var(--fg)">А</div>
+    <div><span class="code">Приложение</span><h2>Словарик</h2><p>Короткие определения всех слов из глав. Удобно повторить перед уроком.</p></div>
+  </div>
+  <dl class="words">
+    <div data-s><dt>Алгоритм</dt><dd>Точная последовательность действий, которая приводит к цели.</dd></div>
+    <div data-s><dt>Язык программирования</dt><dd>Язык для общения с компьютером. Каждая команда в нём понимается только одним способом.</dd></div>
+    <div data-s><dt>Программа</dt><dd>Алгоритм, записанный на языке программирования.</dd></div>
+    <div data-s><dt>Функция</dt><dd>Готовый алгоритм с именем. Например, <code>print()</code> печатает, <code>input()</code> спрашивает.</dd></div>
+    <div data-s><dt>Аргумент</dt><dd>То, что передаём функции в скобках: <code>print(5)</code> — здесь 5 аргумент.</dd></div>
+    <div data-s><dt>Переменная</dt><dd>Имя, за которым хранится значение. Значение можно менять.</dd></div>
+    <div data-s><dt>Присваивание</dt><dd>Команда <code>имя = значение</code>: запомнить значение под этим именем.</dd></div>
+    <div data-s><dt>Тип данных</dt><dd>Вид значения: целое число <code>int</code>, дробное <code>float</code>, текст <code>str</code>.</dd></div>
+    <div data-s><dt>Строка (str)</dt><dd>Текст в кавычках: <code>'Привет'</code>, <code>'42'</code>.</dd></div>
+    <div data-s><dt>Ввод и вывод</dt><dd>Ввод — данные от пользователя (<code>input()</code>), вывод — данные на экран (<code>print()</code>).</dd></div>
+    <div data-s><dt>Интерпретатор</dt><dd>Программа, которая читает твой код и выполняет его строчку за строчкой.</dd></div>
+    <div data-s><dt>Индекс</dt><dd>Номер символа в строке. Считается с нуля: <code>s[0]</code> — первый символ.</dd></div>
+    <div data-s><dt>Срез</dt><dd>Часть строки <code>s[a:b]</code>: с номера a до b, сам b не входит.</dd></div>
+    <div data-s><dt>Метод</dt><dd>Функция, которая пишется через точку после значения: <code>s.find('x')</code>, <code>s.lower()</code>.</dd></div>
+    <div data-s><dt>Комментарий</dt><dd>Пояснение после <code>#</code>, которое Python пропускает.</dd></div>
+    <div data-s><dt>Логический тип (bool)</dt><dd>Тип с двумя значениями: <code>True</code> (истина) и <code>False</code> (ложь).</dd></div>
+    <div data-s><dt>Условие</dt><dd>Выражение, которое бывает верным или неверным: <code>age &gt;= 12</code>.</dd></div>
+    <div data-s><dt>Условный оператор</dt><dd>Команда <code>if</code> / <code>elif</code> / <code>else</code>, которая выбирает, какие команды выполнить.</dd></div>
+    <div data-s><dt>Отступ</dt><dd>4 пробела в начале строки. Показывает, что команда находится внутри <code>if</code>, <code>while</code> или <code>for</code>.</dd></div>
+    <div data-s><dt>Цикл</dt><dd>Команда, которая повторяет действия: <code>while</code> — пока условие верно, <code>for</code> — для каждого элемента.</dd></div>
+    <div data-s><dt>Шаг цикла (итерация)</dt><dd>Одно выполнение тела цикла.</dd></div>
+    <div data-s><dt>Счётчик</dt><dd>Переменная, которая считает шаги цикла: <code>count += 1</code>.</dd></div>
+    <div data-s><dt>Бесконечный цикл</dt><dd>Цикл, условие которого никогда не становится ложным. Программа «зависает».</dd></div>
+    <div data-s><dt>Последовательность</dt><dd>Элементы, которые стоят по порядку: строка, <code>range()</code>.</dd></div>
+    <div data-s><dt>break</dt><dd>Команда, которая сразу прерывает ближайший цикл.</dd></div>
+    <div data-s><dt>Ошибка (исключение)</dt><dd>Сообщение Python о том, что он не смог выполнить строку. Последняя строка сообщения говорит, что именно не так.</dd></div>
+  </dl>
+</section>
+
+<p class="nores" id="nores" hidden>Ничего не нашлось. Попробуй другое слово.</p>
+</main>
+
+<footer><div class="wrap">Пособие для начинающих программистов на Python</div></footer>
+
+<script src="app.js"></script>
+</body>
+</html>
