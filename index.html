@@ -17,7 +17,7 @@
   <div class="wrap">
     <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
     <h1>Пособие по <span>Python</span></h1>
-    <p class="lead">Основы программирования по шагам: от первой строчки кода до циклов. В каждой главе есть объяснение с примерами, пошаговый разбор программ, частые ошибки и вопросы для самопроверки.</p>
+    <p class="lead">Основы программирования по шагам: от первой строчки кода до функций и модулей. В каждой главе есть объяснение с примерами, пошаговый разбор программ, частые ошибки и вопросы для самопроверки.</p>
     <div class="legend">
       <span class="chip"><i style="background:var(--green)"></i>Лайфхак</span>
       <span class="chip"><i style="background:var(--orange)"></i>Осторожно</span>
@@ -31,7 +31,7 @@
   <div class="wrap">
     <div class="search">
       <label for="q" style="position:absolute;left:-9999px">Поиск по пособию</label>
-      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск: print, срез, elif, range, ошибка…" autocomplete="off">
+      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск: print, срез, elif, range, def, import, ошибка…" autocomplete="off">
       <button id="clear" type="button" aria-label="Очистить поиск" hidden>×</button>
     </div>
     <nav class="tabs" aria-label="Главы">
@@ -44,6 +44,11 @@
       <a href="#ch6" data-ch="6"><b>06</b>Сложные условия</a>
       <a href="#ch7" data-ch="7"><b>07</b>Цикл while</a>
       <a href="#ch8" data-ch="8"><b>08</b>Цикл for</a>
+      <a href="#ch9" data-ch="9"><b>09</b>Всё вместе</a>
+      <a href="#ch10" data-ch="10"><b>10</b>Функции</a>
+      <a href="#ch11" data-ch="11"><b>11</b>Функции и отладка</a>
+      <a href="#ch12" data-ch="12"><b>12</b>random и time</a>
+      <a href="#ch13" data-ch="13"><b>13</b>Свои модули</a>
       <a href="#words"><b>А</b>Словарик</a>
     </nav>
   </div>
@@ -54,14 +59,22 @@
 <div class="toc-wrap" id="toc">
   <h2>Оглавление</h2>
   <ul class="toc" style="margin-top:14px">
+    <li class="toc-h">Основы</li>
     <li><a href="#ch1"><b>01</b>Первые программы<small>print(), арифметика, правила Python</small></a></li>
     <li><a href="#ch2"><b>02</b>Переменные и ввод<small>присваивание, типы данных, input(), int()</small></a></li>
     <li><a href="#ch3"><b>03</b>Строки<small>длина, символы по номеру, поиск</small></a></li>
     <li><a href="#ch4"><b>04</b>Короткий и понятный код<small>вложенные команды, комментарии</small></a></li>
+    <li class="toc-h">Условия и циклы</li>
     <li><a href="#ch5"><b>05</b>Условия<small>True и False, if и else</small></a></li>
     <li><a href="#ch6"><b>06</b>Сложные условия<small>вложенный if, elif</small></a></li>
     <li><a href="#ch7"><b>07</b>Цикл while<small>повтор, счётчик, сумма</small></a></li>
     <li><a href="#ch8"><b>08</b>Цикл for<small>перебор строки, range(), break</small></a></li>
+    <li><a href="#ch9"><b>09</b>Собираем всё вместе<small>чат-бот, попытки, вложенность</small></a></li>
+    <li class="toc-h">Функции и модули</li>
+    <li><a href="#ch10"><b>10</b>Свои функции<small>def, параметры, return</small></a></li>
+    <li><a href="#ch11"><b>11</b>Функции внутри функций<small>вызов из функции, отладка</small></a></li>
+    <li><a href="#ch12"><b>12</b>Модули random и time<small>import, случайные числа, секундомер</small></a></li>
+    <li><a href="#ch13"><b>13</b>Свои модули<small>свой файл .py, import, mind map</small></a></li>
   </ul>
 </div>
 
@@ -81,6 +94,16 @@
 
 <script src="chapters/ch8.js"></script>
 
+<script src="chapters/ch9.js"></script>
+
+<script src="chapters/ch10.js"></script>
+
+<script src="chapters/ch11.js"></script>
+
+<script src="chapters/ch12.js"></script>
+
+<script src="chapters/ch13.js"></script>
+
 <section class="sec" id="words">
   <div class="sec-head">
     <div class="sec-num" style="background:var(--yellow);color:var(--fg)">А</div>
@@ -90,8 +113,11 @@
     <div data-s><dt>Алгоритм</dt><dd>Точная последовательность действий, которая приводит к цели.</dd></div>
     <div data-s><dt>Язык программирования</dt><dd>Язык для общения с компьютером. Каждая команда в нём понимается только одним способом.</dd></div>
     <div data-s><dt>Программа</dt><dd>Алгоритм, записанный на языке программирования.</dd></div>
-    <div data-s><dt>Функция</dt><dd>Готовый алгоритм с именем. Например, <code>print()</code> печатает, <code>input()</code> спрашивает.</dd></div>
+    <div data-s><dt>Функция</dt><dd>Алгоритм с именем. Есть готовые (<code>print()</code>, <code>input()</code>), а свои создают командой <code>def</code>.</dd></div>
     <div data-s><dt>Аргумент</dt><dd>То, что передаём функции в скобках: <code>print(5)</code> — здесь 5 аргумент.</dd></div>
+    <div data-s><dt>Параметр</dt><dd>Имя в скобках после <code>def</code>: <code>def hello(name)</code>. При вызове в него попадает аргумент.</dd></div>
+    <div data-s><dt>return</dt><dd>Команда, которая возвращает результат функции и сразу её завершает. Без return функция возвращает <code>None</code>.</dd></div>
+    <div data-s><dt>Локальная переменная</dt><dd>Переменная, созданная внутри функции. Существует только пока функция работает.</dd></div>
     <div data-s><dt>Переменная</dt><dd>Имя, за которым хранится значение. Значение можно менять.</dd></div>
     <div data-s><dt>Присваивание</dt><dd>Команда <code>имя = значение</code>: запомнить значение под этим именем.</dd></div>
     <div data-s><dt>Тип данных</dt><dd>Вид значения: целое число <code>int</code>, дробное <code>float</code>, текст <code>str</code>.</dd></div>
@@ -111,7 +137,12 @@
     <div data-s><dt>Счётчик</dt><dd>Переменная, которая считает шаги цикла: <code>count += 1</code>.</dd></div>
     <div data-s><dt>Бесконечный цикл</dt><dd>Цикл, условие которого никогда не становится ложным. Программа «зависает».</dd></div>
     <div data-s><dt>Последовательность</dt><dd>Элементы, которые стоят по порядку: строка, <code>range()</code>.</dd></div>
+    <div data-s><dt>Вложенность</dt><dd>Конструкция внутри другой конструкции: <code>if</code> в цикле, цикл в <code>if</code>. Каждый уровень — ещё 4 пробела отступа.</dd></div>
     <div data-s><dt>break</dt><dd>Команда, которая сразу прерывает ближайший цикл.</dd></div>
+    <div data-s><dt>Отладчик</dt><dd>Инструмент, который выполняет программу по шагам и показывает значения переменных. Помогает искать ошибки.</dd></div>
+    <div data-s><dt>Стандартная библиотека</dt><dd>Набор готовых инструментов, который устанавливается вместе с Python: встроенные функции и модули.</dd></div>
+    <div data-s><dt>Модуль</dt><dd>Файл .py с функциями. Бывают стандартные (<code>random</code>, <code>time</code>) и свои.</dd></div>
+    <div data-s><dt>import</dt><dd>Команда подключения модуля: <code>import random</code> или <code>from random import randint</code>.</dd></div>
     <div data-s><dt>Ошибка (исключение)</dt><dd>Сообщение Python о том, что он не смог выполнить строку. Последняя строка сообщения говорит, что именно не так.</dd></div>
   </dl>
 </section>

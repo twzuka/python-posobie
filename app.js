@@ -1,5 +1,5 @@
 /* ---------- подсветка кода ---------- */
-const KW=/^(if|elif|else|while|for|in|and|or|not|True|False|None|break|continue)$/;
+const KW=/^(if|elif|else|while|for|in|and|or|not|True|False|None|break|continue|def|return|import|from)$/;
 const FN=/^(print|input|int|float|str|len|type|range|round)$/;
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function hl(src){
@@ -30,7 +30,7 @@ document.querySelectorAll('.cb pre').forEach(pre=>{
 });
 
 /* ---------- пошаговый разбор ---------- */
-function typeOf(v){if(v==='True'||v==='False')return'bool';if(v.startsWith("'"))return'str';if(v.includes('.'))return'float';return'int'}
+function typeOf(v){if(v==='True'||v==='False')return'bool';if(v==='None')return'None';if(v.startsWith("'"))return'str';if(v.includes('.'))return'float';return'int'}
 document.querySelectorAll('.stepper').forEach(box=>{
   const data=JSON.parse(box.querySelector('script').textContent);
   const codeEl=box.querySelector('.st-code'),varsEl=box.querySelector('.st-vars-box'),outEl=box.querySelector('.st-out'),noteEl=box.querySelector('.st-note'),cnt=box.querySelector('.st-count');
@@ -43,7 +43,7 @@ document.querySelectorAll('.stepper').forEach(box=>{
     let vars={},prev={},out=[],changed=null;
     for(let i=0;i<=k;i++){
       const s=data.steps[i]; prev=Object.assign({},vars);
-      if(s.set){for(const n in s.set)vars[n]=s.set[n]}
+      if(s.set){for(const n in s.set){if(s.set[n]===null)delete vars[n];else vars[n]=s.set[n]}}
       if(s.out!==undefined)out.push(s.out);
       if(i===k)changed=s.set?Object.keys(s.set):[];
     }
