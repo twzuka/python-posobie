@@ -95,16 +95,11 @@ function getDone(){try{return JSON.parse(localStorage.getItem('py-done')||'[]')}
 function setDone(a){try{localStorage.setItem('py-done',JSON.stringify(a))}catch(e){}}
 function paintDone(){
   const d=getDone();
-  document.querySelectorAll('nav.tabs a[data-ch]').forEach(a=>a.classList.toggle('done',d.includes(a.dataset.ch)));
+  document.querySelectorAll('.chapter-list a[data-ch]').forEach(a=>a.classList.toggle('done',d.includes(a.dataset.ch)));
   document.querySelectorAll('.donebtn').forEach(b=>{const on=d.includes(b.dataset.ch);b.classList.toggle('on',on);b.textContent=on?'✓ Глава пройдена':'Отметить главу пройденной'});
 }
 document.querySelectorAll('.donebtn').forEach(b=>b.onclick=()=>{let d=getDone();d=d.includes(b.dataset.ch)?d.filter(x=>x!==b.dataset.ch):d.concat(b.dataset.ch);setDone(d);paintDone()});
 paintDone();
-
-/* ---------- активная вкладка ---------- */
-const tabs=[...document.querySelectorAll('nav.tabs a[href^="#ch"]')];
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){tabs.forEach(t=>t.classList.toggle('on',t.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-40% 0px -55% 0px'});
-document.querySelectorAll('section.sec[id^="ch"]').forEach(s=>io.observe(s));
 
 /* ---------- поиск ---------- */
 const q=document.getElementById('q'),clr=document.getElementById('clear'),toc=document.getElementById('toc'),nores=document.getElementById('nores');

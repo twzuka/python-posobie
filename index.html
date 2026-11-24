@@ -9,11 +9,65 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@500;700&display=swap">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="navigation.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d6577"/></marker></defs></svg>
 
-<header class="hero">
+
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="site-title">
+    <a class="brand" href="#toc"><span class="brand-prefix">Пособие по </span>Python</a>
+    <span class="header-topic" data-current-topic>Оглавление</span>
+  </div>
+  <button class="topics-toggle" type="button" aria-controls="topics-panel" aria-expanded="false">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    Темы
+  </button>
+</header>
+<div class="menu-backdrop" hidden></div>
+<aside class="sidebar" id="topics-panel" aria-labelledby="topics-heading">
+  <div class="sidebar-heading">
+    <h2 id="topics-heading">Содержание</h2>
+    <button class="topics-close" type="button" aria-label="Закрыть меню тем">×</button>
+  </div>
+  <div class="search">
+      <label for="q" style="position:absolute;left:-9999px">Поиск по пособию</label>
+      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск по пособию" autocomplete="off">
+      <button id="clear" type="button" aria-label="Очистить поиск" hidden>×</button>
+    </div>
+  <div class="search-feedback">
+    <p id="search-status" role="status" aria-live="polite"></p>
+    <button class="search-results-button" type="button" hidden>Показать результаты</button>
+  </div>
+  <nav class="chapter-list" aria-label="Темы пособия">
+      <a href="#toc"><b>≡</b>Оглавление</a>
+      <h3 class="nav-group">Основы</h3>
+      <a href="#ch1" data-ch="1"><b>01</b>Первые программы</a>
+      <a href="#ch2" data-ch="2"><b>02</b>Переменные</a>
+      <a href="#ch3" data-ch="3"><b>03</b>Строки</a>
+      <a href="#ch4" data-ch="4"><b>04</b>Короткий код</a>
+      <h3 class="nav-group">Условия и циклы</h3>
+      <a href="#ch5" data-ch="5"><b>05</b>Условия</a>
+      <a href="#ch6" data-ch="6"><b>06</b>Сложные условия</a>
+      <a href="#ch7" data-ch="7"><b>07</b>Цикл while</a>
+      <a href="#ch8" data-ch="8"><b>08</b>Цикл for</a>
+      <a href="#ch9" data-ch="9"><b>09</b>Всё вместе</a>
+      <h3 class="nav-group">Функции и модули</h3>
+      <a href="#ch10" data-ch="10"><b>10</b>Функции</a>
+      <a href="#ch11" data-ch="11"><b>11</b>Функции и отладка</a>
+      <a href="#ch12" data-ch="12"><b>12</b>random и time</a>
+      <a href="#ch13" data-ch="13"><b>13</b>Свои модули</a>
+      <h3 class="nav-group">Приложение</h3>
+      <a href="#words"><b>А</b>Словарик</a>
+  </nav>
+</aside>
+<div class="reading-pane">
+
+<main class="wrap" id="main" tabindex="-1">
+<div class="hero">
   <div class="wrap">
     <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
     <h1>Пособие по <span>Python</span></h1>
@@ -25,36 +79,7 @@
       <span class="chip"><i style="background:var(--red)"></i>Ошибка и как её исправить</span>
     </div>
   </div>
-</header>
-
-<div class="bar">
-  <div class="wrap">
-    <div class="search">
-      <label for="q" style="position:absolute;left:-9999px">Поиск по пособию</label>
-      <input id="q" type="text" inputmode="search" enterkeyhint="search" placeholder="Поиск: print, срез, elif, range, def, import, ошибка…" autocomplete="off">
-      <button id="clear" type="button" aria-label="Очистить поиск" hidden>×</button>
-    </div>
-    <nav class="tabs" aria-label="Главы">
-      <a href="#toc"><b>≡</b>Оглавление</a>
-      <a href="#ch1" data-ch="1"><b>01</b>Первые программы</a>
-      <a href="#ch2" data-ch="2"><b>02</b>Переменные</a>
-      <a href="#ch3" data-ch="3"><b>03</b>Строки</a>
-      <a href="#ch4" data-ch="4"><b>04</b>Короткий код</a>
-      <a href="#ch5" data-ch="5"><b>05</b>Условия</a>
-      <a href="#ch6" data-ch="6"><b>06</b>Сложные условия</a>
-      <a href="#ch7" data-ch="7"><b>07</b>Цикл while</a>
-      <a href="#ch8" data-ch="8"><b>08</b>Цикл for</a>
-      <a href="#ch9" data-ch="9"><b>09</b>Всё вместе</a>
-      <a href="#ch10" data-ch="10"><b>10</b>Функции</a>
-      <a href="#ch11" data-ch="11"><b>11</b>Функции и отладка</a>
-      <a href="#ch12" data-ch="12"><b>12</b>random и time</a>
-      <a href="#ch13" data-ch="13"><b>13</b>Свои модули</a>
-      <a href="#words"><b>А</b>Словарик</a>
-    </nav>
-  </div>
 </div>
-
-<main class="wrap" id="main">
 
 <div class="toc-wrap" id="toc">
   <h2>Оглавление</h2>
@@ -151,7 +176,9 @@
 </main>
 
 <footer><div class="wrap">Пособие для начинающих программистов на Python</div></footer>
+</div>
 
 <script src="app.js"></script>
+<script src="navigation.js"></script>
 </body>
 </html>

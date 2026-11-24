@@ -1,0 +1,93 @@
+/* Shared reading layout; each standalone site keeps its own copy. */
+:root{
+  --header-height:68px;
+  --sidebar-width:288px;
+  --nav-accent:var(--accent,var(--blue));
+  --nav-soft:var(--accent-soft,var(--blue-soft));
+}
+html{scroll-behavior:auto}
+body{padding-top:var(--header-height)}
+button,a,input{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--nav-accent);outline-offset:4px}
+.skip-link{position:fixed;left:16px;top:8px;z-index:100;transform:translateY(-150%);padding:10px 16px;background:var(--panel);color:var(--fg);border:2px solid var(--nav-accent);border-radius:8px}
+.skip-link:focus{transform:none}
+.site-header{position:fixed;inset:0 0 auto;height:var(--header-height);z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:var(--panel);border-bottom:1px solid var(--line)}
+.site-title{display:flex;align-items:center;gap:28px;min-width:0}
+.brand{font:700 18px var(--f-body);color:var(--fg);text-decoration:none;white-space:nowrap}
+.header-topic{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:48vw}
+.topics-toggle,.topics-close,.search-results-button{font:600 14px var(--f-body);color:var(--fg);border:1px solid var(--line);border-radius:8px;background:var(--panel);cursor:pointer;min-height:44px}
+.topics-toggle{display:none;align-items:center;justify-content:center;gap:8px;padding:8px 14px;flex:none}
+.topics-close{display:none;width:44px;font-size:28px;line-height:1}
+.sidebar{position:fixed;inset:var(--header-height) auto 0 0;width:var(--sidebar-width);z-index:30;display:flex;flex-direction:column;gap:14px;padding:22px 16px 12px;background:var(--panel);border-right:1px solid var(--line)}
+.sidebar-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none;padding:0 8px}
+.sidebar-heading h2{font:700 12px var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0}
+.sidebar .search{flex:none}
+.sidebar .search input{font-size:15px;padding-left:12px;min-height:46px}
+.sidebar .search button{min-width:40px;min-height:40px}
+.search-feedback:has(#search-status:empty){display:none}
+.search-feedback{flex:none;padding:0 8px}
+#search-status{font-size:13px;color:var(--muted);margin:0}
+.search-results-button{display:none;width:100%;margin-top:10px;border-color:var(--nav-accent);background:var(--nav-soft)}
+.chapter-list{display:flex;flex-direction:column;gap:2px;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:4px 6px 24px 0}
+.nav-group{font:600 12px var(--f-body);letter-spacing:.03em;color:var(--muted);margin:22px 10px 8px}
+.chapter-list a{display:flex;align-items:baseline;gap:9px;flex:none;min-height:44px;padding:10px 10px 10px 12px;border-left:3px solid transparent;border-radius:0 8px 8px 0;color:var(--fg);text-decoration:none;font-size:14px;line-height:1.45;overflow-wrap:anywhere}
+.chapter-list a b{font:600 12px var(--f-mono);color:var(--muted);min-width:22px;flex:none}
+.chapter-list a:hover{background:var(--panel-2)}
+.chapter-list a.on{background:var(--nav-soft);border-left-color:var(--nav-accent);font-weight:600}
+.chapter-list a.on b{color:var(--nav-accent)}
+.chapter-list a.done b{color:var(--green)}
+.chapter-list a.done b::after{content:" ✓"}
+.reading-pane{margin-left:var(--sidebar-width);min-width:0}
+main.wrap{max-width:1000px;padding:28px 36px 64px;scroll-margin-top:var(--header-height)}
+main:focus,section.sec:focus,.toc-wrap:focus{outline:none}
+.hero{padding-block:12px 8px}
+.hero .wrap{padding:0;max-width:none}
+.hero h1{font-size:clamp(28px,3.6vw,40px)}
+.hero .blobs,.hero .axes{display:none}
+.hero .lead{font-size:16px}
+.toc-wrap,section.sec{scroll-margin-top:var(--header-height)}
+.sec-head>div{min-width:0}
+.sec-head h2{overflow-wrap:anywhere}
+.chapter-pagination{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.chapter-pagination a{display:flex;flex-direction:column;gap:5px;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--panel);min-width:0;overflow-wrap:anywhere}
+.chapter-pagination a:hover{border-color:var(--nav-accent);background:var(--nav-soft)}
+.chapter-pagination span{font-size:12px;color:var(--muted)}
+.chapter-pagination strong{font-size:15px;font-weight:600}
+.chapter-pagination .next{text-align:right;grid-column:2}
+.menu-backdrop{position:fixed;inset:var(--header-height) 0 0;z-index:45;background:rgba(0,0,0,.42)}
+.menu-open{overflow:hidden}
+.reading-pane footer .wrap{max-width:1000px;padding-inline:36px}
+@media (prefers-color-scheme:dark){
+  :root{--nav-accent:var(--tip,var(--blue));--nav-soft:var(--tip-bg,var(--blue-soft))}
+}
+@media (max-width:900px){
+  .site-header{padding-inline:max(16px,env(safe-area-inset-left)) max(16px,env(safe-area-inset-right))}
+  .site-title{display:block;flex:1}
+  .brand{font-size:17px}
+  .brand-prefix{display:none}
+  .header-topic{display:block;max-width:60vw;font-size:12px;margin-top:2px}
+  .reading-pane{margin-left:0}
+  main.wrap{padding:22px max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left));max-width:820px}
+  .sidebar{position:relative;inset:auto;width:auto;max-height:65vh;border-right:0;border-bottom:1px solid var(--line)}
+  .nav-ready .topics-toggle{display:flex}
+  .nav-ready .sidebar{position:fixed;inset:var(--header-height) 0 0 auto;z-index:50;width:min(100%,390px);max-height:none;visibility:hidden;pointer-events:none;border-left:1px solid var(--line);border-bottom:0;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+  .nav-ready.menu-open .sidebar{visibility:visible;pointer-events:auto}
+  .nav-ready .topics-close{display:block}
+  .search-results-button{display:block}
+  .chapter-list a{font-size:15px;min-height:46px}
+  .nav-group{font-size:13px}
+  .hero h1{font-size:30px}
+  .hero .legend{font-size:13px}
+  .reading-pane footer .wrap{padding-inline:16px}
+}
+@media (max-width:520px){
+  .chapter-pagination{grid-template-columns:minmax(0,1fr)}
+  .chapter-pagination .next{grid-column:1;text-align:left}
+  .chapter-pagination a{padding:14px}
+}
+@media print{
+  body{padding-top:0}
+  .site-header,.sidebar,.menu-backdrop,.chapter-pagination,.skip-link{display:none!important}
+  .reading-pane{margin-left:0}
+  main.wrap{max-width:none;padding:0}
+}
