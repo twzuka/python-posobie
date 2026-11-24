@@ -15,10 +15,24 @@
   const resultsButton = document.querySelector('.search-results-button');
   const current = document.querySelector('[data-current-topic]');
   const mobile = window.matchMedia('(max-width: 900px)');
-  const targets = [toc, ...sections];
+  const main = document.getElementById('main');
+  const intro = document.querySelector('.hero');
+  const empty = document.querySelector('#nores, #empty');
+  const baseTitle = document.title;
+  const results = document.createElement('section');
+  results.className = 'search-results';
+  results.setAttribute('aria-labelledby', 'results-heading');
+  results.hidden = true;
+  const resultsHeading = document.createElement('h2');
+  resultsHeading.id = 'results-heading';
+  resultsHeading.textContent = 'Результаты поиска';
+  const resultList = document.createElement('div');
+  resultList.className = 'search-result-list';
+  results.append(resultsHeading, resultList);
+  toc.before(results);
+  let selectedPage = toc;
   let activeId = '';
   let open = false;
-  let frame = 0;
 
   function revealCurrent() {
     const active = links.find(link => link.classList.contains('on'));
@@ -92,7 +106,7 @@
     setOpen(false, false);
     if (mobile.matches && focusedInSidebar) toggle.focus();
     else if (!mobile.matches && document.activeElement === toggle) links[0].focus();
-    scheduleUpdate();
+    if (!mobile.matches) revealCurrent();
   });
 
   function makePageLink(target, next) {
@@ -115,25 +129,57 @@
     section.append(pagination);
   });
 
+  function showPage(page) {
+    selectedPage = page;
+    sections.forEach(section => section.hidden = section !== page);
+    toc.hidden = page !== toc;
+    intro.hidden = page !== toc;
+    results.hidden = true;
+    empty.hidden = true;
+    document.querySelectorAll('.chapter-pagination').forEach(nav => nav.hidden = false);
+    document.title = page === toc ? baseTitle : page.querySelector('h2').textContent + ' — ' + baseTitle;
+    mark(page.id);
+  }
+
+  function makeSearchResult(section) {
+    const link = document.createElement('a');
+    link.className = 'search-result';
+    link.href = '#' + section.id;
+    const title = document.createElement('h3');
+    title.textContent = section.querySelector('h2').textContent;
+    const matches = [...section.querySelectorAll('[data-s]')].filter(item => !item.hidden);
+    const excerpt = document.createElement('p');
+    const text = matches[0].textContent.replace(/\s+/g, ' ').trim();
+    excerpt.textContent = text.length > 180 ? text.slice(0, 180) + '…' : text;
+    const action = document.createElement('span');
+    action.textContent = 'Открыть тему →';
+    link.append(title, excerpt, action);
+    return link;
+  }
+
   function updateSearch() {
     const searching = !!search.value.trim();
     const matches = sections.filter(section => !section.hidden);
-    document.querySelector('.hero').hidden = searching;
-    document.querySelectorAll('.chapter-pagination').forEach(nav => nav.hidden = searching);
     status.textContent = searching ? (matches.length ? 'Найдено тем: ' + matches.length : 'Ничего не найдено') : '';
     resultsButton.hidden = !searching || !matches.length;
     if (searching) {
+      resultList.replaceChildren(...matches.map(makeSearchResult));
+      sections.forEach(section => section.hidden = true);
+      intro.hidden = true;
+      toc.hidden = true;
+      results.hidden = !matches.length;
+      empty.hidden = !!matches.length;
+      document.title = 'Поиск — ' + baseTitle;
       mark('');
       current.textContent = 'Результаты поиска';
       window.scrollTo({top: 0, behavior: 'instant'});
-    } else scheduleUpdate();
+    } else showPage(selectedPage);
   }
   search.addEventListener('input', updateSearch);
   document.getElementById('clear').addEventListener('click', updateSearch);
   resultsButton.addEventListener('click', () => {
-    const first = sections.find(section => !section.hidden);
     setOpen(false, false);
-    if (first) focusTarget(first);
+    if (!results.hidden) focusTarget(results);
   });
   search.addEventListener('keydown', event => {
     if (event.key === 'Enter' && !resultsButton.hidden) {
@@ -152,47 +198,47 @@
     search.value = '';
     search.dispatchEvent(new Event('input', {bubbles: true}));
   }
+  function pageFor(target) {
+    return target && (target.closest('section.sec') || target.closest('#toc'));
+  }
+  function hashTarget() {
+    try {
+      return document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    } catch {
+      return null;
+    }
+  }
   document.addEventListener('click', event => {
     const link = event.target.closest('a[href^="#"]');
     if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const target = document.getElementById(link.hash.slice(1));
     if (!target) return;
     event.preventDefault();
+    if (target === main) {
+      focusTarget(main);
+      return;
+    }
     clearSearch();
     if (open) setOpen(false, false);
+    const page = pageFor(target);
+    if (page) showPage(page);
     if (location.hash !== link.hash) history.pushState(null, '', link.hash);
     focusTarget(target);
-    if (targets.includes(target)) mark(target.id);
   });
 
-  function updateActive() {
-    frame = 0;
-    if (search.value.trim()) return;
-    let active = toc;
-    const threshold = header.getBoundingClientRect().bottom + 36;
-    targets.forEach(target => {
-      if (!target.hidden && target.getBoundingClientRect().top <= threshold) active = target;
-    });
-    mark(active.id);
-  }
-  function scheduleUpdate() {
-    if (!frame) frame = requestAnimationFrame(updateActive);
-  }
-  window.addEventListener('scroll', scheduleUpdate, {passive: true});
-  window.addEventListener('resize', scheduleUpdate);
   window.addEventListener('hashchange', () => {
     clearSearch();
     if (open) setOpen(false, false);
-    const target = document.getElementById(location.hash.slice(1));
+    const target = hashTarget();
+    showPage(pageFor(target) || toc);
     if (target) focusTarget(target);
-    scheduleUpdate();
+    else window.scrollTo({top: 0, behavior: 'instant'});
   });
   document.body.classList.add('nav-ready');
   setOpen(false, false);
-  updateActive();
+  showPage(pageFor(hashTarget()) || toc);
   window.addEventListener('load', () => {
-    const target = document.getElementById(location.hash.slice(1));
+    const target = hashTarget();
     if (target) focusTarget(target);
-    scheduleUpdate();
   }, {once: true});
 })();

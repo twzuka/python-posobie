@@ -45,7 +45,14 @@ main:focus,section.sec:focus,.toc-wrap:focus{outline:none}
 .hero h1{font-size:clamp(28px,3.6vw,40px)}
 .hero .blobs,.hero .axes{display:none}
 .hero .lead{font-size:16px}
-.toc-wrap,section.sec{scroll-margin-top:var(--header-height)}
+.toc-wrap,section.sec,.search-results{scroll-margin-top:var(--header-height)}
+.search-results{padding-top:20px}
+.search-result-list{display:grid;gap:14px;margin-top:22px}
+.search-result{display:block;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--fg);text-decoration:none}
+.search-result:hover{border-color:var(--nav-accent)}
+.search-result h3{font-size:18px;line-height:1.4;margin:0 0 8px}
+.search-result p{font-size:15px;color:var(--muted);margin:0 0 12px;overflow-wrap:anywhere}
+.search-result span{font-size:14px;font-weight:600;color:var(--nav-accent)}
 .sec-head>div{min-width:0}
 .sec-head h2{overflow-wrap:anywhere}
 .chapter-pagination{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
